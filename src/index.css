@@ -5,42 +5,25 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 8%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 16%;
+    --accent-foreground: 0 0% 95%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --input: 0 0% 16%;
+    --ring: 0 0% 83%;
     --radius: 0.5rem;
   }
 }
@@ -52,67 +35,80 @@
 
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, #0F0A1A 0%, #1E1B3A 50%, #2D1B69 100%) !important;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #0d0d0d 50%, #000000 100%);
     min-height: 100vh;
+    font-family: 'Inter', sans-serif;
   }
 
   html {
-    background: #0F0A1A !important;
+    background: #000000;
   }
 }
 
 @layer components {
-  .mystical-card {
-    background: linear-gradient(135deg, rgba(76, 29, 149, 0.3) 0%, rgba(30, 58, 138, 0.3) 100%);
-    border: 2px solid transparent;
-    background-clip: padding-box;
+  .ninja-card {
+    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(13, 13, 13, 0.8));
+    border: 1px solid rgba(64, 64, 64, 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
+    overflow: hidden;
   }
   
-  .mystical-card::before {
+  .ninja-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(135deg, #F59E0B, #8B5CF6, #3B82F6);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: xor;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
   
-  .floating-particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
+  .ninja-card:hover::before {
+    opacity: 1;
   }
   
-  .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #F59E0B;
-    border-radius: 50%;
-    animation: sparkle 3s ease-in-out infinite;
+  .ninja-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
+  .shadow-text {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  }
+  
+  .glow-text {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   }
 
   .animate-fade-in {
     animation: fadeIn 1s ease-out forwards;
   }
 
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
   }
 }
